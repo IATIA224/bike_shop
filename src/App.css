@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+.menu-btn {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  background: linear-gradient(135deg, #00cfff 0%, #003b7a 100%);
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px 0 #00cfff55;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 110;
+  transition: box-shadow 0.2s, border 0.2s;
+  border: 2px solid #fff;
+}
+.menu-btn:hover {
+  box-shadow: 0 0 32px 0 #00cfff99;
+  border: 2px solid #aaf0ff;
+}
+.menu-icon svg {
+  display: block;
+}

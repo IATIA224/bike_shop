@@ -30,7 +30,7 @@ function App() {
         onClose={() => setSidebarOpen(false)}
         onNavigate={pg => {
           setPage(pg);
-          setSidebarOpen(false);
+          // Do NOT close sidebar here!
         }}
       />
       {page === "home" && <Home />}

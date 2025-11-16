@@ -7,8 +7,9 @@ function Navbar({ visible, onClose, onNavigate }) {
       {visible && (
         <div className="sidebar">
           <div className="sidebar-header">
-            <span className="sidebar-logo">VeloHub</span>
-            <span className="sidebar-subtitle">Ride the Future</span>
+            <img src="/img/brand_logo.png" alt="KJC Quickscape Logo" className="sidebar-logo-img" />
+            <span className="sidebar-logo">KJC </span>
+            <span className="sidebar-subtitle">Quickscape</span>
             <button className="sidebar-close" onClick={onClose}>&times;</button>
           </div>
           <ul className="sidebar-menu">

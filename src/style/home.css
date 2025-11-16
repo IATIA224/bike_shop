@@ -77,3 +77,9 @@
   box-shadow: 0 0 48px 0 #00cfff99;
   background: linear-gradient(90deg, #00cfff 40%, #005bb7 100%);
 }
+.home-logo {
+  width: 270px;   /* 180px + 50% = 270px */
+  height: 270px;
+  display: block;
+  margin: 0 auto 20px auto;
+}

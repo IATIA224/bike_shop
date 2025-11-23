@@ -2,15 +2,17 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 260px;
-  height: 100vh;
+  bottom: 0;               /* full height */
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  overflow-y: auto;        /* sidebar scrolls independently if content is long */
   background: linear-gradient(120deg, #1a2a4f 60%, #0a0f23 100%);
   box-shadow: 0 0 32px #003b7a88;
-  z-index: 100;
+  z-index: 1000;           /* above main-content */
   display: flex;
   flex-direction: column;
-  color: #e0e6f6;
-  animation: slideIn 0.3s;
+  will-change: transform;  /* hint to browser */
+  transform: none;         /* ensure no transform is applied */
 }
 @keyframes slideIn {
   from { transform: translateX(-100%); }
@@ -73,4 +75,27 @@
   background: #00cfff22;
   color: #00cfff;
   border-left: 4px solid #00cfff;
+}
+
+/* keep the sidebar fixed to the viewport and independent of main-content scrolling/transforms */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;               /* full height */
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  overflow-y: auto;        /* sidebar scrolls independently if content is long */
+  background: linear-gradient(120deg, #1a2a4f 60%, #0a0f23 100%);
+  box-shadow: 0 0 32px #003b7a88;
+  z-index: 1000;           /* above main-content */
+  display: flex;
+  flex-direction: column;
+  will-change: transform;  /* hint to browser */
+  transform: none;         /* ensure no transform is applied */
+}
+
+/* ensure child elements do not inherit transforms from other ancestors */
+.sidebar * {
+  transform: none !important;
 }

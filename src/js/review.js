@@ -3,7 +3,7 @@ import "../style/review.css";
 
 const reviews = [
   {
-    text: `"The AI-powered e-bike from VeloHub has completely transformed my daily commute. It's like having a personal cycling coach!"`,
+    text: `"The AI-powered e-bike from KJC Quickscape has completely transformed my daily commute. It's like having a personal cycling coach!"`,
     author: "Alex Chen"
   },
   {
@@ -15,7 +15,7 @@ const reviews = [
     author: "James Wilson"
   },
   {
-    text: `"VeloHub's tech services are unmatched. They upgraded my bike's software and it feels like I got a brand new machine."`,
+    text: `"KJC Quickscape tech services are unmatched. They upgraded my bike's software and it feels like I got a brand new machine."`,
     author: "Sarah Kim"
   }
 ];

@@ -14,6 +14,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* main content is wrapped and shifted when sidebar opens */}
       {!sidebarOpen && (
         <button className="menu-btn" onClick={() => setSidebarOpen(true)}>
           <span className="menu-icon">
@@ -33,12 +34,15 @@ function App() {
           // Do NOT close sidebar here!
         }}
       />
-      {page === "home" && <Home />}
-      {page === "about" && <About />}
-      {page === "products" && <Product />}
-      {page === "services" && <Services />}
-      {page === "contact" && <Contact />}
-      {page === "reviews" && <Review />}
+      {/* only the main content block shifts — navbar remains fixed at left */}
+      <div className={`main-content ${sidebarOpen ? "shift" : ""}`}>
+        {page === "home" && <Home />}
+        {page === "about" && <About />}
+        {page === "products" && <Product />}
+        {page === "services" && <Services />}
+        {page === "contact" && <Contact />}
+        {page === "reviews" && <Review />}
+      </div>
     </div>
   );
 }

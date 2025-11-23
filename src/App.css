@@ -62,3 +62,109 @@
 .menu-icon svg {
   display: block;
 }
+
+/* shift main app content to the right when the sidebar is open */
+.App {
+  transition: transform 300ms cubic-bezier(.2,.9,.2,1);
+  transform: translateX(0);
+}
+
+/* shift the whole app by the exact sidebar width */
+.App.sidebar-open {
+  transform: translateX(var(--sidebar-width));
+}
+
+/* responsive: small screens should keep overlay (no shift) */
+@media (max-width: 900px) {
+  .App.sidebar-open {
+    transform: translateX(0);
+  }
+}
+
+/* keep vertical scrollbar always to avoid layout jitter */
+html {
+  overflow-y: scroll;
+}
+
+:root {
+  --sidebar-width: 260px; /* keep in sync with navbar width */
+  --site-text: #eafcff; /* original text color */
+}
+
+/* ensure no browser body margin is creating white gaps */
+html, body {
+  margin: 0;
+  height: 100%;
+  background: linear-gradient(120deg, #0a0f23 40%, #1a2a4f 60%); /* match app bg */
+}
+
+/* remove old entire-app transform behavior if present */
+/* .App.sidebar-open { ... } */
+
+/* new main-content block that moves when sidebar is open */
+.main-content {
+  transition: transform 300ms cubic-bezier(.2,.9,.2,1);
+  transform: translateX(0);
+  position: relative;
+  z-index: 1; /* content sits above page background, below sidebar */
+
+  /* keep scrolling inside this element so the sidebar stays fixed */
+  height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  color: inherit;
+}
+
+/* shift content by HALF the sidebar width so the page remains visually centered */
+.main-content.shift {
+  transform: translateX(calc(var(--sidebar-width) / 2));
+}
+
+/* keep small screens overlay behavior (no shift) */
+@media (max-width: 900px) {
+  .main-content.shift {
+    transform: translateX(0);
+  }
+}
+
+/* global text color for the whole app */
+html, body, #root {
+  margin: 0;
+  height: 100%;
+  background: linear-gradient(120deg, #0a0f23 40%, #1a2a4f 60%);
+  color: var(--site-text);
+}
+
+/* ensure main content keeps original text color */
+.main-content {
+  transition: transform 300ms cubic-bezier(.2,.9,.2,1);
+  transform: translateX(0);
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  overflow-y: auto;
+  color: inherit;
+}
+
+/* avoid accidental overrides on children */
+.main-content * {
+  color: inherit;
+}
+
+/* keep small screens overlay behavior (no shift) */
+@media (max-width: 900px) {
+  .main-content.shift {
+    transform: translateX(0);
+  }
+}
+
+/* Hide scrollbars for all browsers */
+html, body, .main-content {
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* IE and Edge */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.main-content::-webkit-scrollbar {
+  display: none;                  /* Chrome, Safari, Opera */
+}

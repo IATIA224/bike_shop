@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import "../style/product.css";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 const icons = {
   mountain: (
@@ -43,58 +45,111 @@ const icons = {
       <polygon points="32,28 38,40 26,40" fill="#fff"/>
     </svg>
   ),
+  fallback:(
+    <svg width="64" height="64" viewBox="0 0 64 64">
+      <rect x="8" y="8" width="48" height="48" rx="8" fill="#00cfff22"/>
+    </svg>
+  )
 };
 
-const products = [
-  {
-    icon: icons.mountain,
-    title: "Mountain Bikes",
-    desc: "Conquer any terrain with our advanced mountain bikes featuring smart suspension and GPS tracking."
-  },
-  {
-    icon: icons.racing,
-    title: "Racing Bikes",
-    desc: "Ultra-lightweight carbon fiber frames with aerodynamic design for maximum speed and performance."
-  },
-  {
-    icon: icons.urban,
-    title: "Urban Bikes",
-    desc: "Smart city bikes with integrated navigation, theft protection, and weather-resistant design."
-  },
-  {
-    icon: icons.ebike,
-    title: "E-Bikes",
-    desc: "Next-gen electric bikes with AI-powered assistance and solar charging capabilities."
-  },
-  {
-    icon: icons.tech,
-    title: "Tech Services",
-    desc: "Advanced diagnostics, software updates, and precision tuning for all bike types."
-  },
-  {
-    icon: icons.gear,
-    title: "Smart Gear",
-    desc: "High-tech accessories including smart helmets, GPS trackers, and safety systems."
-  }
-];
+function resolveImage(item) {
+  const defaultImg = "/img/brand_logo.png";
+  const raw = item.Image || item.IMAGE || item.images || item.IMAGES || item.image || null;
+  if (!raw) return defaultImg;
+  if (typeof raw === "string" && raw.trim() !== "") return raw;
+  if (Array.isArray(raw) && raw.length > 0 && typeof raw[0] === "string") return raw[0];
+  return defaultImg;
+}
 
 function Product() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  useEffect(() => {
+    let mounted = true;
+    async function loadPrices() {
+      try {
+        const snap = await getDocs(collection(db, "prices"));
+        const data = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        if (mounted) setItems(data);
+      } catch (err) {
+        console.error("Failed to load prices:", err);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
+    loadPrices();
+    return () => (mounted = false);
+  }, []);
+
+  // compute category list (includes All)
+  const categories = useMemo(() => {
+    const set = new Set();
+    items.forEach(item => {
+      const cat = (item.CATEGORY || item.category || "Uncategorized").toString().trim();
+      set.add(cat || "Uncategorized");
+    });
+    return ["All", ...Array.from(set)];
+  }, [items]);
+  
+  // filter items by selected category
+  const visibleItems = useMemo(() => {
+    if (selectedCategory === "All") return items;
+    return items.filter(it => ((it.CATEGORY || it.category || "Uncategorized").toString().trim() === selectedCategory));
+  }, [items, selectedCategory]);
+
   return (
     <div className="product-bg">
       <div className="product-content">
+        <div className="product-controls">
+          <label htmlFor="category-filter" className="sr-only">Filter by category</label>
+          <select
+            id="category-filter"
+            className="product-filter"
+            value={selectedCategory}
+            onChange={e => setSelectedCategory(e.target.value)}
+          >
+            {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+          </select>
+        </div>
+
         <h1 className="product-title">Our Collection</h1>
         <h2 className="product-subtitle">Premium Bikes & Services</h2>
-        <div className="product-grid">
-          {products.map((item, idx) => (
-            <div className="product-card" key={idx}>
-              <div className="product-card-icon">{item.icon}</div>
-              <div className="product-card-info">
-                <div className="product-card-title">{item.title}</div>
-                <div className="product-card-desc">{item.desc}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+
+        {loading ? (
+          <div style={{ color: "#e0e6f6", marginTop: 20 }}>Loading items…</div>
+        ) : (
+          <div className="product-grid">
+            {visibleItems.length === 0 ? (
+              <div style={{ color: "#e0e6f6" }}>No items found.</div>
+            ) : visibleItems.map((item, idx) => {
+              const name = item["ITEM NAME"] || item["ITEM_NAME"] || item.ITEM_NAME || "Untitled";
+              const price = item.PRICE ?? item.Price ?? "N/A";
+              const category = item.CATEGORY || item.category || "Uncategorized";
+              const img = resolveImage(item);
+              const icon = icons[category?.toLowerCase()] || icons.fallback;
+
+              return (
+                <div className="product-card" key={item.id || idx}>
+                  <div className="product-card-icon">
+                    {img && img !== "/img/brand_logo.png" ? (
+                      <img src={img} alt={name} className="product-card-img" />
+                    ) : (
+                      icon
+                    )}
+                  </div>
+                  <div className="product-card-info">
+                    <div className="product-card-title">{name}</div>
+                    <div className="product-card-category">{category}</div>
+                    <div className="product-card-desc">{item.desc || item.DESCRIPTION || ""}</div>
+                    <div className="product-card-price">{price !== "N/A" ? `₱ ${price}` : "Price N/A"}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

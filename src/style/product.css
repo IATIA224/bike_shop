@@ -14,6 +14,51 @@
   max-width: 1300px;
   margin: 0 auto;
   text-align: center;
+  position: relative; /* allow absolute controls (filter) */
+
+  /* keep layout stable when items are filtered */
+  min-height: 78vh;          /* reserve vertical space so the grid doesn't shrink too much */
+}
+
+/* filter control placed at top-right of product content */
+.product-controls {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 9999; /* ensure dropdown sits above the page */
+}
+
+.product-filter {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: linear-gradient(180deg,#082033 0%, rgba(0,0,0,0.28) 100%);
+  color: #eafcff;               /* visible text */
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  min-width: 160px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.45);
+  cursor: pointer;
+}
+
+/* Style the popup option list */
+.product-filter option {
+  background: #082033;         /* dark dropdown background */
+  color: #eafcff;              /* readable option text */
+}
+
+/* Windows/Edge: hide native arrow to keep styling consistent */
+.product-filter::-ms-expand { display: none; }
+
+/* Small hover/focus feedback */
+.product-filter:focus {
+  box-shadow: 0 0 18px #00cfff66;
+  outline: none;
 }
 
 .product-title {
@@ -37,6 +82,9 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
   justify-items: center;
+
+  align-content: start;      /* keep items pinned to top */
+  min-height: calc(3 * (340px + 40px)); /* reserve space for ~3 rows (adjust if card size changes) */
 }
 
 .product-card {
@@ -71,6 +119,13 @@
   margin-top: 32px;
   margin-bottom: 0;
   background: none;
+}
+
+.product-card-icon img {
+  width: 72%;
+  max-height: 150px;
+  object-fit: contain;
+  border-radius: 10px;
 }
 
 .product-card-info {
@@ -108,4 +163,34 @@
   flex: 1;
   display: flex;
   align-items: center;
+}
+
+.product-card-category {
+  font-size: 0.9rem;
+  color: #bfefff;
+  opacity: 0.85;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.product-card-price {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #eafcff;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.12);
+  display: inline-block;
+}
+
+/* small accessible helper (hidden visually) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }

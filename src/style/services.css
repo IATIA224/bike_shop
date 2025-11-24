@@ -26,6 +26,7 @@
 }
 
 .services-subtitle {
+  font-family: poppins, sans-serif;
   font-size: 1.3rem;
   color: #b0b8c9;
   font-weight: 400;
@@ -116,6 +117,7 @@
 }
 
 .services-card-title {
+  margin-top: 10px;
   font-size: 1.15rem;
   font-weight: 700;
   color: #eafcff;
@@ -123,6 +125,7 @@
 }
 
 .services-card-price {
+  font-family: poppins, sans-serif;
   font-size: 0.98rem;
   color: #bfefff;
   background: rgba(0, 0, 0, 0.12);
@@ -148,7 +151,7 @@
   bottom: 0;
   min-height: 120px;
   height: 120px;
-  padding: 28px 24px 32px 24px;
+  padding: 24px 24px 24px 24px;
   border-bottom-left-radius: 28px;
   border-bottom-right-radius: 28px;
   display: flex;
@@ -156,18 +159,23 @@
   align-items: flex-start;
   justify-content: center;
   box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
 }
 
 .services-card-title {
+  font-family: poppins, sans-serif;
+  text-align: center;
   font-size: 1.3rem;
   font-weight: 700;
   color: #00cfff;
   margin-bottom: 10px;
-  margin-top: 0;
+  margin-top: 30px;
   line-height: 1.2;
 }
 
 .services-card-desc {
+  font-family: poppins, sans-serif;
   color: #e0e6f6;
   font-size: 1rem;
   line-height: 1.5;

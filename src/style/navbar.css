@@ -19,7 +19,7 @@
   to { transform: translateX(0); }
 }
 .sidebar-header {
-  padding: 20px 20px 10px 20px;
+  padding: 20px 20px 40px 20px;
   border-bottom: 1px solid #22335a;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,10 @@
   gap: 16px;
   position: relative;
 }
+
+.sidebar-
 .sidebar-logo {
+  font-family: poppins, sans-serif !important;
   font-size: 2rem;
   font-weight: 700;
   color: #aaf0ff;
@@ -40,7 +43,8 @@
   margin: 0;
 }
 .sidebar-subtitle {
-  font-size: 1.1rem;
+  font-size: 14px;
+  font-family: poppins, sans-serif;
   font-weight: normal;
   color: #e0e0e0;
   margin-top: 2px;
@@ -70,11 +74,27 @@
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
-.sidebar-menu li.active,
-.sidebar-menu li:hover {
+.sidebar-menu li.active {
+  background: #1976d2 !important;
+  color: #00eaff !important;
+  border-left: 4px solid #00eaff !important;
+  font-weight: 600;
+  border-radius: 0 6px 6px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: none;
+}
+.sidebar-menu li:hover:not(.active) {
   background: #00cfff22;
   color: #00cfff;
   border-left: 4px solid #00cfff;
+}
+.sidebar-menu .active {
+  background: #1976d2;
+  color: #00eaff;
+  border-left: 4px solid #00eaff;
+  font-weight: 600;
+  border-radius: 0 6px 6px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 /* keep the sidebar fixed to the viewport and independent of main-content scrolling/transforms */

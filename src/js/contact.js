@@ -4,70 +4,31 @@ import "../style/contact.css";
 const contacts = [
   {
     icon: (
-      <svg width="48" height="48" viewBox="0 0 48 48">
-        <circle cx="24" cy="24" r="18" fill="url(#grad1)" />
-        <circle cx="24" cy="24" r="7" fill="#ff3b7a" />
-        <rect x="22" y="15" width="4" height="14" rx="2" fill="#fff" />
-        <defs>
-          <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#00cfff" />
-            <stop offset="100%" stopColor="#003b7a" />
-          </radialGradient>
-        </defs>
-      </svg>
+      <img src="/img/map.png" alt="Phone Call Icon" width={32} height={32} />
     ),
-    title: "Innovation Hub",
-    desc: "456 Tech Boulevard, Future City, FC 67890"
+    title: "North Signal Branch",
+    desc: "3-i 9th Avenue , Taguig, Philippines, 1630"
   },
   {
     icon: (
-      <svg width="48" height="48" viewBox="0 0 48 48">
-        <circle cx="24" cy="24" r="18" fill="url(#grad2)" />
-        <path d="M24 32c4-2 8-6 8-10a8 8 0 1 0-16 0c0 4 4 8 8 10z" fill="#ff3b7a" />
-        <defs>
-          <radialGradient id="grad2" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#00cfff" />
-            <stop offset="100%" stopColor="#003b7a" />
-          </radialGradient>
-        </defs>
-      </svg>
+      <img src="/img/phone-call.png" alt="Phone Call Icon" width={32} height={32} />
     ),
-    title: "Call Direct",
-    desc: "(555) 456-VELO"
+    title: "Call or Text",
+    desc: "09062226680"
   },
   {
     icon: (
-      <svg width="48" height="48" viewBox="0 0 48 48">
-        <circle cx="24" cy="24" r="18" fill="url(#grad3)" />
-        <rect x="16" y="20" width="16" height="12" rx="3" fill="#fff" />
-        <rect x="16" y="20" width="16" height="4" rx="2" fill="#aaf0ff" />
-        <defs>
-          <radialGradient id="grad3" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#00cfff" />
-            <stop offset="100%" stopColor="#003b7a" />
-          </radialGradient>
-        </defs>
-      </svg>
+      <img src="/img/communication.png" alt="Phone Call Icon" width={32} height={32} />
     ),
-    title: "Email Hub",
-    desc: "hello@velohub.com"
+    title: "Email Us",
+    desc: "kjcbikeshop@gmail.com"
   },
   {
     icon: (
-      <svg width="48" height="48" viewBox="0 0 48 48">
-        <circle cx="24" cy="24" r="18" fill="url(#grad4)" />
-        <circle cx="24" cy="24" r="8" fill="#aaf0ff" />
-        <path d="M24 18a6 6 0 0 1 6 6h-12a6 6 0 0 1 6-6z" fill="#00cfff" />
-        <defs>
-          <radialGradient id="grad4" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#00cfff" />
-            <stop offset="100%" stopColor="#003b7a" />
-          </radialGradient>
-        </defs>
-      </svg>
+      <img src="/img/Facebook.png" alt="Phone Call Icon" width={32} height={32} />
     ),
     title: "Social Network",
-    desc: "@VeloHubTech across all platforms"
+    desc: "@kjcbikeshop"
   }
 ];
 

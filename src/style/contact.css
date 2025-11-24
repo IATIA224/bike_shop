@@ -26,6 +26,7 @@
 }
 
 .contact-subtitle {
+  font-family: poppins, sans-serif;
   font-size: 1.3rem;
   color: #b0b8c9;
   font-weight: 400;
@@ -70,6 +71,7 @@
 }
 
 .contact-card-title {
+  font-family: poppins, sans-serif;
   font-size: 1.2rem;
   font-weight: 700;
   color: #00cfff;
@@ -77,6 +79,7 @@
 }
 
 .contact-card-desc {
+  font-family: poppins, sans-serif;
   color: #e0e6f6;
   font-size: 1rem;
   line-height: 1.5;

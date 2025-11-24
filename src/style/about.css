@@ -17,15 +17,17 @@
 }
 
 .about-title {
+  font-family: poppins, sans-serif;
   font-size: 3rem;
   font-weight: 700;
   color: #aaf0ff;
   text-shadow: 0 0 24px #00cfff99;
   margin-bottom: 0.5rem;
-  margin-top: 60px;
+  margin-top: 0;
 }
 
 .about-subtitle {
+  font-family: poppins, sans-serif;
   font-size: 1.3rem;
   color: #b0b8c9;
   font-weight: 400;
@@ -56,6 +58,9 @@
   display: flex;
   align-items: center;
 }
+.about-text p {
+  text-align: justify;
+}
 
 .about-image {
   flex: 1;
@@ -76,4 +81,28 @@
   min-width: 260px;
   min-height: 200px;
   box-shadow: 0 0 32px 0 #00cfff55;
+}
+
+.carousel-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-image {
+  width: 300px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
 }

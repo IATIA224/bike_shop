@@ -1,5 +1,6 @@
 import React from "react";
 import "../style/review.css";
+import "../style/mobile.css";
 
 const reviews = [
   {

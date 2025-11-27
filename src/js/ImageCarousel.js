@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../style/about.css";
+import "../style/mobile.css";
 
 const images = [
     "/img/carousel/1.jpg",

@@ -1,5 +1,6 @@
 import React from "react";
 import "../style/navbar.css";
+import "../style/mobile.css";
 
 function Navbar({ visible, onClose, onNavigate, activePage }) {
   return (

@@ -1,5 +1,6 @@
 import React from "react";
 import "../style/contact.css";
+import "../style/mobile.css";
 
 const contacts = [
   {

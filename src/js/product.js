@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "../style/product.css";
+import "../style/mobile.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 

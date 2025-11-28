@@ -1,5 +1,6 @@
 import React from "react";
 import "../style/about.css";
+import "../style/mobile.css";
 import Navbar from "./navbar";
 import ImageCarousel from "./ImageCarousel"; // Import the ImageCarousel component
 

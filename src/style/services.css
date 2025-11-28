@@ -61,21 +61,20 @@
 /* new image container so cards keep layout even when image missing */
 .services-card-img-wrap {
   width: 100%;
-  height: 170px;
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(0,0,0,0.06));
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
 }
 
-.services-card-img {
-  width: 72%;
-  height: auto;
-  max-height: 150px;
-  object-fit: contain;
-  border-radius: 12px;
-  filter: drop-shadow(0 8px 28px rgba(0,0,0,0.5));
+.services-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+  display: block;
 }
 
 .services-card-icon {

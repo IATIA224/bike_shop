@@ -25,16 +25,20 @@ function Services() {
     return () => { mounted = false; };
   }, []);
 
- function resolveImage(item) {
+function resolveImage(item) {
   const defaultImg = "/img/bikeshop_logo.png";
-  // Match image from public/img/services by service name
-  const serviceName = (item.SERVICES || "").toLowerCase().replace(/\s+/g, "_");
-    const extensions = [".png", ".jpg", ".webp"];
-    for (let ext of extensions) {
-      const serviceImgPath = `/img/services/${serviceName}${ext}`;
-      // We can't check existence in browser, so just return the first path
-      return serviceName ? serviceImgPath : defaultImg;
-    }
+  const rawName = item.SERVICES || "";
+  if (!rawName) return defaultImg;
+
+  // Try all possible extensions and original casing
+  const extensions = [".jpg", ".png", ".webp"];
+  for (let ext of extensions) {
+    // Try with original casing and underscores
+    const fileName = rawName.replace(/\s+/g, "_") + ext;
+    const path = `/img/services/${fileName}`;
+    // Return the first path (browser will show broken image if not found)
+    return path;
+  }
   return defaultImg;
 }
 
@@ -55,7 +59,7 @@ function Services() {
               return (
                 <div className="services-card" key={item.id}>
                   <div className="services-card-img-wrap">
-                    <img src={img} alt={item.SERVICES || "service image"} className="services-card-img" />
+                    <img src={img} alt={item.SERVICES || "service image"} className="services-card-img-wrap" />
                   </div>
 
                   <div className="services-card-info">

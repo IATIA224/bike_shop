@@ -24,15 +24,18 @@ function Services() {
     return () => { mounted = false; };
   }, []);
 
-  function resolveImage(item) {
-    // support string, array or empty field
-    const defaultImg = "/img/brand_logo.png";
-    const raw = item.IMAGES || item.images || item.image || null;
-    if (!raw) return defaultImg;
-    if (typeof raw === "string" && raw.trim() !== "") return raw;
-    if (Array.isArray(raw) && raw.length > 0 && typeof raw[0] === "string") return raw[0];
-    return defaultImg;
-  }
+ function resolveImage(item) {
+  const defaultImg = "/img/bikeshop_logo.png";
+  // Match image from public/img/services by service name
+  const serviceName = (item.SERVICES || "").toLowerCase().replace(/\s+/g, "_");
+    const extensions = [".png", ".jpg", ".webp"];
+    for (let ext of extensions) {
+      const serviceImgPath = `/img/services/${serviceName}${ext}`;
+      // We can't check existence in browser, so just return the first path
+      return serviceName ? serviceImgPath : defaultImg;
+    }
+  return defaultImg;
+}
 
   return (
     <div className="services-bg">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import "../style/product.css";
 import "../style/mobile.css";
 import { collection, getDocs } from "firebase/firestore";
@@ -62,10 +62,88 @@ function resolveImage(item) {
   return defaultImg;
 }
 
+function ProductModal({ open, onClose, product }) {
+  const scrollYRef = useRef(0);
+
+  React.useEffect(() => {
+    if (open) {
+      scrollYRef.current = window.scrollY || document.documentElement.scrollTop || 0;
+      document.body.classList.add("modal-open");
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollYRef.current}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.width = "100%";
+    } else {
+      const y = scrollYRef.current;
+      document.body.classList.remove("modal-open");
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+      document.body.style.overflow = "";
+      window.scrollTo(0, y);
+    }
+    return () => {
+      const y = scrollYRef.current;
+      document.body.classList.remove("modal-open");
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+      document.body.style.overflow = "";
+      window.scrollTo(0, y);
+    };
+  }, [open]);
+
+  if (!open || !product) return null;
+  const name = product["ITEM NAME"] || product["ITEM_NAME"] || product.ITEM_NAME || "Untitled";
+  const price = product.PRICE ?? product.Price ?? "N/A";
+  const img = resolveImage(product);
+  // Handle array or string for description
+  let descLines = [];
+  if (Array.isArray(product.description)) {
+    descLines = product.description.filter(line => line && line.trim() !== "");
+  } else if (typeof product.description === "string") {
+    descLines = product.description.split("\n").filter(line => line && line.trim() !== "");
+  } else {
+    descLines = [(product.desc || product.DESCRIPTION || "No description available.")];
+  }
+  const stock = product.stockStatus === "in-stock" || product.stockStatus === "In-Stock" ? "In-Stock" : "Out of Stock";
+
+  return (
+    <div className="product-modal-backdrop" onClick={onClose}>
+      <div className="product-modal" onClick={e => e.stopPropagation()}>
+        <button className="product-modal-close" onClick={onClose}>×</button>
+        <div className="product-modal-img-wrap">
+          <img src={img} alt={name} className="product-modal-img" />
+        </div>
+        <div className="product-modal-info">
+          <h2 className="product-modal-title">{name}</h2>
+          <div className="product-modal-price-stock">
+            <span className="product-modal-price">{price !== "N/A" ? `₱ ${price}` : "Price N/A"}</span>
+            <span className={`product-modal-stock ${stock === "In-Stock" ? "in-stock" : "out-stock"}`}>{stock}</span>
+          </div>
+          <div className="product-modal-desc">
+            {descLines.length > 0
+              ? descLines.map((line, idx) => <div key={idx}>{line}</div>)
+              : <div>No description available.</div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Product() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalProduct, setModalProduct] = useState(null);
 
   useEffect(() => {
     let mounted = true;
@@ -121,35 +199,49 @@ function Product() {
         {loading ? (
           <div style={{ color: "#e0e6f6", marginTop: 20 }}>Loading items…</div>
         ) : (
-          <div className="product-grid">
-            {visibleItems.length === 0 ? (
-              <div style={{ color: "#e0e6f6" }}>No items found.</div>
-            ) : visibleItems.map((item, idx) => {
-              const name = item["ITEM NAME"] || item["ITEM_NAME"] || item.ITEM_NAME || "Untitled";
-              const price = item.PRICE ?? item.Price ?? "N/A";
-              const category = item.CATEGORY || item.category || "Uncategorized";
-              const img = resolveImage(item);
-              const icon = icons[category?.toLowerCase()] || icons.fallback;
+          <>
+            <ProductModal open={modalOpen} onClose={() => setModalOpen(false)} product={modalProduct} />
+            <div className="product-grid">
+              {visibleItems.length === 0 ? (
+                <div style={{ color: "#e0e6f6" }}>No items found.</div>
+              ) : visibleItems.map((item, idx) => {
+                  const name = item["ITEM NAME"] || item["ITEM_NAME"] || item.ITEM_NAME || "Untitled";
+                  const price = item.PRICE ?? item.Price ?? "N/A";
+                  const category = item.CATEGORY || item.category || "Uncategorized";
+                  const img = resolveImage(item);
+                  const icon = icons[category?.toLowerCase()] || icons.fallback;
 
-              return (
-                <div className="product-card" key={item.id || idx}>
-                  <div className="product-card-icon">
-                    {img && img !== "/img/brand_logo.png" ? (
-                      <img src={img} alt={name} className="product-card-img" />
-                    ) : (
-                      icon
-                    )}
-                  </div>
-                  <div className="product-card-info">
-                    <div className="product-card-title">{name}</div>
-                    <div className="product-card-category">{category}</div>
-                    <div className="product-card-desc">{item.desc || item.DESCRIPTION || ""}</div>
-                    <div className="product-card-price">{price !== "N/A" ? `₱ ${price}` : "Price N/A"}</div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                  return (
+                    <div className="product-card" key={item.id || idx} onClick={() => { setModalProduct(item); setModalOpen(true); }}>
+                      <div className="product-card-icon">
+                        {img && img !== "/img/brand_logo.png" ? (
+                          <img src={img} alt={name} className="product-card-img" />
+                        ) : (
+                          icon
+                        )}
+                      </div>
+                      <div className="product-card-info">
+                        <div className="product-card-title">{name}</div>
+                        <div className="product-card-category">{category}</div>
+                        <div className="product-card-desc">{item.desc || item.DESCRIPTION || ""}</div>
+                        <div className="product-card-price">{price !== "N/A" ? `₱ ${price}` : "Price N/A"}</div>
+                        <div
+                          className={`product-card-stock ${
+                            item.stockStatus === "in-stock" || item.stockStatus === "In-Stock"
+                              ? "in-stock"
+                              : "out-stock"
+                          }`}
+                        >
+                          {item.stockStatus === "in-stock" || item.stockStatus === "In-Stock"
+                            ? "In-Stock"
+                            : "Out of Stock"}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </>
         )}
       </div>
     </div>

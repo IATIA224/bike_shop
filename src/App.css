@@ -106,9 +106,9 @@ html, body {
   transition: transform 300ms cubic-bezier(.2,.9,.2,1);
   transform: translateX(0);
   position: relative;
-  z-index: 1; /* content sits above page background, below sidebar */
+  z-index: 1; 
 
-  /* keep scrolling inside this element so the sidebar stays fixed */
+  
   height: 100vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;

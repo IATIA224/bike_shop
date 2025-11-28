@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
+import ReactDOM from "react-dom";
 import "../style/product.css";
 import "../style/mobile.css";
 import { collection, getDocs } from "firebase/firestore";
@@ -194,13 +195,18 @@ function Product() {
         </div>
 
         <h1 className="product-title">Our Collection</h1>
-        <h2 className="product-subtitle">Premium Bikes & Services</h2>
+        <h2 className="product-subtitle">Premium Bikes & Parts</h2>
 
         {loading ? (
           <div style={{ color: "#e0e6f6", marginTop: 20 }}>Loading items…</div>
         ) : (
           <>
-            <ProductModal open={modalOpen} onClose={() => setModalOpen(false)} product={modalProduct} />
+            {modalOpen && modalProduct &&
+              ReactDOM.createPortal(
+                <ProductModal open={modalOpen} onClose={() => setModalOpen(false)} product={modalProduct} />,
+                document.body
+              )
+            }
             <div className="product-grid">
               {visibleItems.length === 0 ? (
                 <div style={{ color: "#e0e6f6" }}>No items found.</div>

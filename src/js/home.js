@@ -2,7 +2,7 @@ import React from "react";
 import "../style/home.css";
 import "../style/mobile.css";
 
-function Home() {
+function Home({ onNavigate }) {
   return (
     <div className="home-hero-bg">
       <div className="hero-content">
@@ -13,7 +13,12 @@ function Home() {
         <p className="hero-desc">
           Experience the next generation of cycling with our cutting-edge bikes and expert services. From electric innovations to classic craftsmanship, we're your gateway to extraordinary rides.
         </p>
-        <button className="hero-cta">EXPLORE COLLECTION</button>
+        <button
+          className="hero-cta"
+          onClick={() => onNavigate && onNavigate("products")}
+        >
+          EXPLORE COLLECTION
+        </button>
       </div>
     </div>
   );

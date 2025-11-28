@@ -12,6 +12,12 @@ function App() {
   const [page, setPage] = useState("home");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // Navigation handler to pass to Home and Navbar
+  const handleNavigate = (pg) => {
+    setPage(pg);
+    // Do NOT close sidebar here!
+  };
+
   return (
     <div className="App">
       {/* main content is wrapped and shifted when sidebar opens */}
@@ -29,14 +35,11 @@ function App() {
       <Navbar
         visible={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
-        onNavigate={pg => {
-          setPage(pg);
-          // Do NOT close sidebar here!
-        }}
+        onNavigate={handleNavigate}
       />
       {/* only the main content block shifts — navbar remains fixed at left */}
       <div className={`main-content ${sidebarOpen ? "shift" : ""}`}>
-        {page === "home" && <Home />}
+        {page === "home" && <Home onNavigate={handleNavigate} />}
         {page === "about" && <About />}
         {page === "products" && <Product />}
         {page === "services" && <Services />}

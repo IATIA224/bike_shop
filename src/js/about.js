@@ -16,7 +16,7 @@ function About() {
             <p>
               KJC Bikeshop represents the evolution of cycling culture.
               Since 2016, we’ve been at the forefront of bicycle innovation, combining cutting-edge technology with timeless craftsmanship.
-              Our team of passionate cyclists work tirelessly to bring you the most advanced bikes on the market.
+              Our team of passionate cyclists work tirelessly to bring you the most advanced bike services on the market.
               We push the boundaries of what’s possible.
               We believe cycling is more than transportation—it’s a lifestyle, a passion, and a path to a sustainable future.<br />
               Join us in riding toward tomorrow.<br /><br />

@@ -4,20 +4,48 @@ import "../style/mobile.css";
 
 const reviews = [
   {
-    text: `"The AI-powered e-bike from KJC Quickscape has completely transformed my daily commute. It's like having a personal cycling coach!"`,
-    author: "Alex Chen"
+    text: `"legit seller!!! smooth transaction and very flexible 💪💪💪"`,
+    author: "Sherwin Pogoy"
   },
   {
-    text: `"Incredible craftsmanship and cutting-edge technology. My carbon fiber racing bike is a work of art that performs like a dream."`,
-    author: "Maria Rodriguez"
+    text: `"Very accommodating si seller at ang bilis mag reply.  Easy transaction and affordable prices. Thanks KJC Bike Shop!"`,
+    author: "Shreky Luna"
   },
   {
-    text: `"The smart city bike with GPS tracking gave me peace of mind. Plus, the solar charging feature is absolutely brilliant!"`,
-    author: "James Wilson"
+    text: `"Good service💯 💯💯💯💯 Highly recommended ⭐⭐⭐⭐⭐"`,
+    author: "Glen Saligan Mabilanga"
   },
   {
-    text: `"KJC Quickscape tech services are unmatched. They upgraded my bike's software and it feels like I got a brand new machine."`,
+    text: `"Very fast and efficient. Legit products. I will buy again. Thank you KJC."`,
+    author: "Joal Arellano"
+  },
+  {
+    text: `"✅Convenient & Hassle free transaction! I ordered alloy carrier. Mabilis kausap si seller. Thank youuuu... 👍"`,
+    author: "Coffee Brew Selection"
+  },
+  {
+    text: `"good deal, maraming salamat.."`,
+    author: "Jonah Xerxes"
+  },
+  {
+    text: `"Smooth transaction. Honest and ang bait ng seller. may pa freebies pang kasama sa order ko. Highly recommended Online Seller of BIKE parts. Keep it up po and God Bless. 😇🙏"`,
+    author: "Ronnel Lomoljo"
+  },
+  {
+    text: `"Mabait sila at mabilis mag deliver. 100% liget."`,
+    author: "Rosswel Gonzales"
+  },
+  {
+    text: `"Great seller, fast response and accommodating. Highly recommended!"`,
     author: "Sarah Kim"
+  },
+  {
+    text: `"Legit quality items, Fast transaction, Very accommodating seller"`,
+    author: "Rocel Sirenas" 
+  },
+  {
+    text: `"The owner is very accommodating, everything you're looking for is here! The place is also beautiful, very clean"`,
+    author: "Marico Del Rosario"
   }
 ];
 
